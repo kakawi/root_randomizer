@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:root_randomizer/repository/providers/factions_filter_provider.dart';
 import 'package:root_randomizer/widgets/expansion_filter.dart';
 
 class FactionsFilter extends StatelessWidget {
@@ -9,7 +10,15 @@ class FactionsFilter extends StatelessWidget {
     return Expanded(
         child: Column(
       children: [
-        ExpansionFilter(),
+        ExpansionFilter(
+          expansionName: "Base game",
+          factions: [
+            Factions.marquiseDeCat,
+            Factions.eerieDynasty,
+            Factions.woodlandAlliance,
+            Factions.vagabond,
+          ],
+        ),
       ],
     ));
   }

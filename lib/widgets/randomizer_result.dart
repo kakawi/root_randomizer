@@ -4,6 +4,19 @@ import 'package:root_randomizer/repository/providers/factions_filter_provider.da
 import 'package:root_randomizer/repository/providers/randomization_provider.dart';
 import 'package:root_randomizer/widgets/faction_icon.dart';
 
+String ordinal(int number) {
+  switch (number % 10) {
+    case 1:
+      return '${number}st';
+    case 2:
+      return '${number}nd';
+    case 3:
+      return '${number}rd';
+    default:
+      return '${number}th';
+  }
+}
+
 class RandomizerResult extends ConsumerWidget {
   const RandomizerResult({super.key});
 
@@ -13,17 +26,26 @@ class RandomizerResult extends ConsumerWidget {
     if (randomizerResult.status == ResultStatus.error) {
       return Text(randomizerResult.errorMessage!);
     }
-    return Expanded(
-        child: Row(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        for (Factions faction in randomizerResult.factions)
-          FactionIcon(
-            faction: faction,
+        const Text("Game setup: ",),
+        for (final (int index, Factions faction)
+            in randomizerResult.factions.indexed)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(ordinal(index + 1)),
+              FactionIcon(
+                faction: faction,
+              ),
+            ],
           ),
         IconButton(
             onPressed: ref.read(randomizerResultProvider.notifier).randomize,
             icon: const Icon(Icons.restart_alt_rounded))
       ],
-    ));
+    );
   }
 }

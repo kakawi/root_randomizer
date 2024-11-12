@@ -16,8 +16,6 @@ class FactionFilter extends ConsumerWidget {
         return Colors.green;
       case FactionIconStatus.forbidden:
         return Colors.red;
-      case FactionIconStatus.firstPlayer:
-        return Colors.orange;
       case FactionIconStatus.neutral:
         return Colors.grey;
     }
@@ -40,6 +38,7 @@ class FactionFilter extends ConsumerWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 2),
           shape: BoxShape.rectangle,

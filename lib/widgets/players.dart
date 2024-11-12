@@ -9,14 +9,35 @@ class PlayersWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final numberOfPlayers = ref.watch(numberOfPlayersProvider);
     final notifier = ref.read(numberOfPlayersProvider.notifier);
-    return Expanded(
-        child: Row(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text("Number of players: "),
-        ElevatedButton(onPressed: notifier.decrement, child: const Text("-1")),
-        Text(numberOfPlayers.toString()),
-        ElevatedButton(onPressed: notifier.increment, child: const Text("+1")),
+        Row(
+          children: [
+            IconButton(
+                onPressed: notifier.decrement,
+                icon: const Icon(
+                  Icons.exposure_neg_1,
+                  color: Colors.blue,
+                  size: 32,
+                )),
+            const SizedBox(width: 10),
+            Text(
+              numberOfPlayers.toString(),
+              style: TextStyle(fontSize: 52),
+            ),
+            const SizedBox(width: 10),
+            IconButton(
+                onPressed: notifier.increment,
+                icon: const Icon(
+                  Icons.exposure_plus_1,
+                  color: Colors.blue,
+                  size: 32,
+                )),
+          ],
+        )
       ],
-    ));
+    );
   }
 }

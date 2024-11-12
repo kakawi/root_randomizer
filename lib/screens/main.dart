@@ -8,11 +8,21 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String appTitle = "Root Randomizer";
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Root randomiser')),
-        body: Column(
-            children: [RandomizerResult(), FactionsFilter(), PlayersWidget()]),
+        appBar: AppBar(title: const Text(appTitle)),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(height: 80, child: RandomizerResult()),
+                FactionsFilter(),
+                PlayersWidget()
+              ]),
+        ),
       ),
     );
   }
