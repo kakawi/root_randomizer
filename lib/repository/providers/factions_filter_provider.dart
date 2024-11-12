@@ -63,6 +63,7 @@ class FactionsFilter {
   List<Factions> getAvailableFactions({int? limit}) {
     final result = Factions.values.toSet();
     result.removeAll(forbiddenFactions);
+    result.removeAll(mandatoryFactions);
     if (limit == null) {
       return result.toList();
     }
