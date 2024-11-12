@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-
-enum Factions {
-  marquiseDeCat,
-  eerieDynasty,
-  woodlandAlliance,
-  vagabond,
-}
+import 'package:root_randomizer/repository/providers/factions_filter_provider.dart';
 
 class FactionIcon extends StatelessWidget {
   final Factions faction;
