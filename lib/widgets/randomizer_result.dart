@@ -20,6 +20,9 @@ class RandomizerResult extends ConsumerWidget {
           FactionIcon(
             faction: faction,
           ),
+        IconButton(
+            onPressed: ref.read(randomizerResultProvider.notifier).randomize,
+            icon: const Icon(Icons.restart_alt_rounded))
       ],
     ));
   }

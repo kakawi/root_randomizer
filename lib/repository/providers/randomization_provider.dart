@@ -13,47 +13,50 @@ class RandomizerResult {
       {required this.factions, required this.status, this.errorMessage});
 }
 
-class RandomizerResultNotifier extends StateNotifier<RandomizerResult> {
-  RandomizerResultNotifier()
-      : super(RandomizerResult(
-          factions: [],
-          status: ResultStatus.error,
-        ));
+class RandomizerResultNotifier extends Notifier<RandomizerResult> {
+  @override
+  RandomizerResult build() {
+    final numberOfPlayers = ref.watch(numberOfPlayersProvider);
+    final filter = ref.watch(factionsFilterProvider);
+
+    final mandatoryFactionsNumber = filter.mandatoryFactions.length;
+    final neededMoreFactions = numberOfPlayers - mandatoryFactionsNumber;
+    // 1. Too many mandatory factions
+    if (neededMoreFactions < 0) {
+      return RandomizerResult(
+        factions: [],
+        status: ResultStatus.error,
+        errorMessage: 'Too many mandatory factions',
+      );
+    }
+
+    // 2. Not enough available factions
+    if (filter.getAvailableFactions().length < neededMoreFactions) {
+      return RandomizerResult(
+        factions: [],
+        status: ResultStatus.error,
+        errorMessage: 'Not enough available factions',
+      );
+    }
+
+    // 3. Success
+    final mandatoryFactions = filter.mandatoryFactions;
+    final randomAvailableFactions =
+        filter.getAvailableFactions(limit: neededMoreFactions);
+    final resultFactions = [...mandatoryFactions, ...randomAvailableFactions];
+    resultFactions.shuffle();
+
+    return RandomizerResult(
+      factions: resultFactions,
+      status: ResultStatus.success,
+    );
+  }
+
+  void randomize() {
+    state = build();
+  }
 }
 
-final randomizerResultProvider = StateProvider<RandomizerResult>((ref) {
-  final numberOfPlayers = ref.watch(numberOfPlayersProvider);
-  final filter = ref.watch(factionsFilterProvider);
-
-  final mandatoryFactionsNumber = filter.mandatoryFactions.length;
-  final neededMoreFactions = numberOfPlayers - mandatoryFactionsNumber;
-  // 1. Too many mandatory factions
-  if (neededMoreFactions < 0) {
-    return RandomizerResult(
-      factions: [],
-      status: ResultStatus.error,
-      errorMessage: 'Too many mandatory factions',
-    );
-  }
-
-  // 2. Not enough available factions
-  if (filter.getAvailableFactions().length < neededMoreFactions) {
-    return RandomizerResult(
-      factions: [],
-      status: ResultStatus.error,
-      errorMessage: 'Not enough available factions',
-    );
-  }
-
-  // 3. Success
-  final mandatoryFactions = filter.mandatoryFactions;
-  final randomAvailableFactions =
-      filter.getAvailableFactions().take(neededMoreFactions);
-  final resultFactions = [...mandatoryFactions, ...randomAvailableFactions];
-  resultFactions.shuffle();
-
-  return RandomizerResult(
-    factions: resultFactions,
-    status: ResultStatus.success,
-  );
-});
+final randomizerResultProvider =
+    NotifierProvider<RandomizerResultNotifier, RandomizerResult>(
+        RandomizerResultNotifier.new);

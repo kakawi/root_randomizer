@@ -60,10 +60,15 @@ class FactionsFilter {
         mandatoryFactions: newMandatoryFactions);
   }
 
-  Set<Factions> getAvailableFactions() {
-    final availableFactions = Factions.values.toSet();
-    availableFactions.removeAll(forbiddenFactions);
-    return availableFactions;
+  List<Factions> getAvailableFactions({int? limit}) {
+    final result = Factions.values.toSet();
+    result.removeAll(forbiddenFactions);
+    if (limit == null) {
+      return result.toList();
+    }
+    final shuffledResult = result.toList();
+    shuffledResult.shuffle();
+    return shuffledResult.take(limit).toList();
   }
 }
 
