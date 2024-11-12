@@ -12,10 +12,18 @@ class ExpansionFilter extends ConsumerWidget {
         child: Column(
       children: [
         ElevatedButton(
-          onPressed: () {},
-          child: Text('Base game'),
+          onPressed: () {
+            final notifier = ref.read(factionsFilterProvider.notifier);
+            notifier.toggleExpansion([
+              Factions.marquiseDeCat,
+              Factions.eerieDynasty,
+              Factions.woodlandAlliance,
+              Factions.vagabond
+            ]);
+          },
+          child: const Text('Base game'),
         ),
-        Expanded(
+        const Expanded(
             child: Row(
           children: [
             FactionFilter(faction: Factions.marquiseDeCat),

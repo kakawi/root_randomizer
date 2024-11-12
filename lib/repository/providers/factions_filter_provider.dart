@@ -70,6 +70,22 @@ class FactionsFilter {
     shuffledResult.shuffle();
     return shuffledResult.take(limit).toList();
   }
+
+  FactionsFilter addForbiddenFactions(Iterable<Factions> factions) {
+    final newForbiddenFactions = {...forbiddenFactions};
+    newForbiddenFactions.addAll(factions);
+    return FactionsFilter(
+        forbiddenFactions: newForbiddenFactions,
+        mandatoryFactions: mandatoryFactions);
+  }
+
+  FactionsFilter removeForbiddenFactions(Iterable<Factions> factions) {
+    final newForbiddenFactions = {...forbiddenFactions};
+    newForbiddenFactions.removeAll(factions);
+    return FactionsFilter(
+        forbiddenFactions: newForbiddenFactions,
+        mandatoryFactions: mandatoryFactions);
+  }
 }
 
 class FactionsFilterNotifier extends StateNotifier<FactionsFilter> {
@@ -81,6 +97,16 @@ class FactionsFilterNotifier extends StateNotifier<FactionsFilter> {
 
   void toggleFaction(Factions faction) {
     state = state.toggleFaction(faction);
+  }
+
+  void toggleExpansion(Iterable<Factions> factions) {
+    final bool isAnyAllowed =
+        factions.any((faction) => !state.forbiddenFactions.contains(faction));
+    if (isAnyAllowed) {
+      state = state.addForbiddenFactions(factions);
+    } else {
+      state = state.removeForbiddenFactions(factions);
+    }
   }
 
   void addMandatoryFaction(Factions faction) {
