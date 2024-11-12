@@ -18,9 +18,9 @@ class MainScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(height: 80, child: RandomizerResult()),
-                FactionsFilter(),
-                PlayersWidget()
+                SizedBox(height: 80, child: const RandomizerResult()),
+                const FactionsFilter(),
+                const PlayersWidget()
               ]),
         ),
       ),

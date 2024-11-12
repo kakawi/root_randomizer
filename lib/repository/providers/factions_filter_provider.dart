@@ -3,9 +3,24 @@ import 'package:root_randomizer/repository/providers/faction_icon_status.dart';
 
 enum Factions {
   marquiseDeCat,
-  eerieDynasty,
+  eyrieDynasty,
   woodlandAlliance,
   vagabond,
+
+  // The Riverfolk Expansion
+  lizardCult,
+  riverfolkCompany,
+  secondVagabond,
+
+  // The Underworld Expansion
+  corvidConspiracy,
+  undergroundDuchy,
+
+  // The Marauder Expansion
+  lordOfTheHundreds,
+  keepersInIron,
+
+  // Homeland Expansion
 }
 
 class FactionsFilter {

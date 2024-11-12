@@ -25,7 +25,7 @@ class PlayersWidget extends ConsumerWidget {
             const SizedBox(width: 10),
             Text(
               numberOfPlayers.toString(),
-              style: TextStyle(fontSize: 52),
+              style: const TextStyle(fontSize: 52),
             ),
             const SizedBox(width: 10),
             IconButton(

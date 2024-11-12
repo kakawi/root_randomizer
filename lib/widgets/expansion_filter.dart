@@ -5,9 +5,21 @@ import 'package:root_randomizer/repository/providers/factions_filter_provider.da
 import 'package:root_randomizer/widgets/faction_filter.dart';
 
 enum ExpansionStatus {
-  full(widget: Icon(Icons.check, color: Colors.green,)),
-  none(widget: Icon(Icons.disabled_by_default_rounded, color: Colors.red,)),
-  some(widget: Icon(Icons.question_mark_rounded, color: Colors.blue,));
+  full(
+      widget: Icon(
+    Icons.check,
+    color: Colors.green,
+  )),
+  none(
+      widget: Icon(
+    Icons.disabled_by_default_rounded,
+    color: Colors.red,
+  )),
+  some(
+      widget: Icon(
+    Icons.question_mark_rounded,
+    color: Colors.blue,
+  ));
 
   const ExpansionStatus({required this.widget});
 
@@ -45,9 +57,7 @@ class ExpansionFilter extends ConsumerWidget {
     final factionsFilter = ref.watch(factionsFilterProvider);
     final expansionStatus = getExpansionStatus(factionsFilter);
 
-    return Expanded(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
       children: [
         TextButton(
             onPressed: () {
@@ -65,6 +75,6 @@ class ExpansionFilter extends ConsumerWidget {
           children: factionFilterWidgets,
         ),
       ],
-    ));
+    );
   }
 }
