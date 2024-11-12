@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:root_randomizer/repository/providers/factions_filter_provider.dart';
+import 'package:root_randomizer/repository/providers/randomization_provider.dart';
+import 'package:root_randomizer/widgets/faction_icon.dart';
 
-class RandomizerResult extends StatelessWidget {
+class RandomizerResult extends ConsumerWidget {
   const RandomizerResult({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final randomizerResult = ref.watch(randomizerResultProvider);
+    if (randomizerResult.status == ResultStatus.error) {
+      return Text(randomizerResult.errorMessage!);
+    }
     return Expanded(
         child: Row(
       children: [
-        Icon(Icons.star, color: Colors.yellow),
-        Icon(Icons.star, color: Colors.yellow),
-        Icon(Icons.star, color: Colors.yellow),
+        for (Factions faction in randomizerResult.factions)
+          FactionIcon(
+            faction: faction,
+          ),
       ],
     ));
   }

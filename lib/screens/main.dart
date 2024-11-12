@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:root_randomizer/widgets/factions_filter.dart';
+import 'package:root_randomizer/widgets/players.dart';
 import 'package:root_randomizer/widgets/randomizer_result.dart';
 
 class MainScreen extends StatelessWidget {
@@ -10,7 +11,8 @@ class MainScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Root randomiser')),
-        body: Column(children: [RandomizerResult(), FactionsFilter()]),
+        body: Column(
+            children: [RandomizerResult(), FactionsFilter(), PlayersWidget()]),
       ),
     );
   }

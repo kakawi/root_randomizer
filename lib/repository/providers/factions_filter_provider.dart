@@ -59,6 +59,12 @@ class FactionsFilter {
         forbiddenFactions: newForbiddenFactions,
         mandatoryFactions: newMandatoryFactions);
   }
+
+  Set<Factions> getAvailableFactions() {
+    final availableFactions = Factions.values.toSet();
+    availableFactions.removeAll(forbiddenFactions);
+    return availableFactions;
+  }
 }
 
 class FactionsFilterNotifier extends StateNotifier<FactionsFilter> {
