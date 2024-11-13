@@ -1,7 +1,7 @@
 name: root_randomizer
-description: "A new Flutter project."
+description: "Root Randomizer"
 publish_to: 'none'
-version: 0.1.0
+version: 0.2.0
 
 environment:
   sdk: ^3.5.4
@@ -17,11 +17,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   flutter_launcher_icons: ^0.14.1
-
-flutter_launcher_icons:
-  image_path: "icons/app_logo.jpg"
-  android: true
-  ios: true
 
 flutter:
   uses-material-design: true
