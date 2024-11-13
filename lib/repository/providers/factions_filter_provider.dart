@@ -89,11 +89,12 @@ class FactionsFilter {
 
   FactionsFilter addForbiddenFactions(Iterable<Factions> factions) {
     final newForbiddenFactions = {...forbiddenFactions};
+    final newMandatoryFactions = {...mandatoryFactions};
     newForbiddenFactions.addAll(factions);
-    mandatoryFactions.removeAll(factions);
+    newMandatoryFactions.removeAll(factions);
     return FactionsFilter(
         forbiddenFactions: newForbiddenFactions,
-        mandatoryFactions: mandatoryFactions);
+        mandatoryFactions: newMandatoryFactions);
   }
 
   FactionsFilter removeForbiddenFactions(Iterable<Factions> factions) {
