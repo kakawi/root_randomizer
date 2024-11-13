@@ -15,39 +15,60 @@ class MainScreen extends StatelessWidget {
         useMaterial3: true,
 
         // Define the default brightness and colors.
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
-          // ···
-          brightness: Brightness.light,
-        ),
 
         // Define the default `TextTheme`. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
-          displayLarge: const TextStyle(
-            fontSize: 72,
-            fontWeight: FontWeight.bold,
-          ),
-          // ···
+          // Main title
           titleLarge: GoogleFonts.oswald(
             fontSize: 30,
           ),
-          bodyMedium: GoogleFonts.merriweather(),
-          displaySmall: GoogleFonts.pacifico(),
+          // All text
+          bodyMedium: GoogleFonts.merriweather(
+            fontSize: 20,
+          ),
+          // Expansion names
+          labelLarge: GoogleFonts.merriweather(
+            fontSize: 20,
+          ),
         ),
+
+        // scaffoldBackgroundColor: Colors.transparent,
       ),
-      home: Scaffold(
-        appBar: AppBar(title: const Text(appTitle)),
-        body: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 80, child: RandomizerResult()),
-                FactionsFilter(),
-                PlayersWidget()
+      home: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                // Color.fromARGB(255, 171, 186, 124),
+                // Color.fromARGB(150, 171, 186, 124),
+
+                // Color.fromARGB(255, 191, 211, 131),
+                // Color.fromARGB(200, 124, 138, 78),
+
+                Color.fromARGB(255, 246, 206, 96),
+                Color.fromARGB(200, 211, 190, 131),
               ]),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: const Text(appTitle),
+            backgroundColor: Colors.transparent,
+            // backgroundColor: const Color.fromARGB(150, 171, 186, 124),
+          ),
+          body: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: const Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 80, child: RandomizerResult()),
+                  FactionsFilter(),
+                  PlayersWidget()
+                ]),
+          ),
         ),
       ),
     );

@@ -17,7 +17,7 @@ class FactionFilter extends ConsumerWidget {
       case FactionIconStatus.forbidden:
         return Colors.red;
       case FactionIconStatus.neutral:
-        return Colors.grey;
+        return Colors.black;
     }
   }
 

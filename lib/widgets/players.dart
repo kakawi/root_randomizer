@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:root_randomizer/repository/providers/number_of_players_provider.dart';
 
+final playersButtonStyle = ElevatedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5.0),
+    ),
+    backgroundColor: const Color.fromARGB(48, 241, 194, 7));
+
 class PlayersWidget extends ConsumerWidget {
   const PlayersWidget({super.key});
 
@@ -15,25 +21,32 @@ class PlayersWidget extends ConsumerWidget {
         const Text("Number of players: "),
         Row(
           children: [
-            IconButton(
+            ElevatedButton(
                 onPressed: notifier.decrement,
-                icon: const Icon(
-                  Icons.exposure_neg_1,
-                  color: Colors.blue,
-                  size: 32,
+                style: playersButtonStyle,
+                child: const Text(
+                  "-",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.black,
+                  ),
                 )),
-            const SizedBox(width: 10),
-            Text(
-              numberOfPlayers.toString(),
-              style: const TextStyle(fontSize: 52),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                numberOfPlayers.toString(),
+                style: const TextStyle(fontSize: 48),
+              ),
             ),
-            const SizedBox(width: 10),
-            IconButton(
+            ElevatedButton(
                 onPressed: notifier.increment,
-                icon: const Icon(
-                  Icons.exposure_plus_1,
-                  color: Colors.blue,
-                  size: 32,
+                style: playersButtonStyle,
+                child: const Text(
+                  "+",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.black,
+                  ),
                 )),
           ],
         )

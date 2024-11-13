@@ -7,7 +7,7 @@ import 'package:root_randomizer/widgets/faction_filter.dart';
 enum ExpansionStatus {
   full(
       widget: Icon(
-    Icons.check,
+    Icons.check_box,
     color: Colors.green,
   )),
   none(
@@ -67,7 +67,11 @@ class ExpansionFilter extends ConsumerWidget {
             child: Row(
               children: [
                 expansionStatus.widget,
-                Text(expansionName),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(expansionName,
+                  style: TextStyle(color: Colors.black)),
+                ),
               ],
             )),
         Row(
