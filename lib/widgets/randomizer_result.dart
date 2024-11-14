@@ -30,7 +30,7 @@ class RandomizerResult extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text("Game setup: ",),
+        const Text("Setup: ",),
         for (final (int index, Factions faction)
             in randomizerResult.factions.indexed)
           Column(

@@ -27,15 +27,15 @@ class PlayersWidget extends ConsumerWidget {
                 child: const Text(
                   "-",
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 26,
                     color: Colors.black,
                   ),
                 )),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
                 numberOfPlayers.toString(),
-                style: const TextStyle(fontSize: 48),
+                style: const TextStyle(fontSize: 38),
               ),
             ),
             ElevatedButton(
@@ -44,7 +44,7 @@ class PlayersWidget extends ConsumerWidget {
                 child: const Text(
                   "+",
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 26,
                     color: Colors.black,
                   ),
                 )),
