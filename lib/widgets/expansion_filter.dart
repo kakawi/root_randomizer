@@ -70,7 +70,7 @@ class ExpansionFilter extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Text(expansionName,
-                  style: TextStyle(color: Colors.black)),
+                  style: const TextStyle(color: Colors.black)),
                 ),
               ],
             )),
