@@ -7,10 +7,9 @@ class FactionsFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-      children: [
+    return Expanded(
+        child: ListView(
+      children: const [
         ExpansionFilter(
           expansionName: "Base game",
           factions: [
@@ -35,7 +34,7 @@ class FactionsFilter extends StatelessWidget {
         ExpansionFilter(expansionName: "The Marauder Expansion", factions: [
           Factions.lordOfTheHundreds,
           Factions.keepersInIron,
-        ])
+        ]),
       ],
     ));
   }

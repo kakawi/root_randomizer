@@ -6,6 +6,7 @@ final playersButtonStyle = ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5.0),
     ),
+    minimumSize: Size.zero,
     backgroundColor: const Color.fromARGB(48, 241, 194, 7));
 
 class PlayersWidget extends ConsumerWidget {
