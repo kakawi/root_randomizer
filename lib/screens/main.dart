@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:root_randomizer/widgets/balance.dart';
 import 'package:root_randomizer/widgets/factions_filter.dart';
 import 'package:root_randomizer/widgets/players.dart';
 import 'package:root_randomizer/widgets/randomizer_result.dart';
@@ -64,6 +65,7 @@ class MainScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  BalanceWidget(),
                   SizedBox(height: 80, child: RandomizerResult()),
                   FactionsFilter(),
                   PlayersWidget()
