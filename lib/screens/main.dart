@@ -5,6 +5,11 @@ import 'package:root_randomizer/widgets/factions_filter.dart';
 import 'package:root_randomizer/widgets/players.dart';
 import 'package:root_randomizer/widgets/randomizer_result.dart';
 
+const divider = Divider(
+  color: Color.fromARGB(132, 0, 0, 0),
+  thickness: 1,
+);
+
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
@@ -66,7 +71,9 @@ class MainScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   BalanceWidget(),
+                  divider,
                   RandomizerResultWidget(),
+                  divider,
                   FactionsFilter(),
                   PlayersWidget()
                 ]),

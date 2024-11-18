@@ -11,6 +11,11 @@ class RandomizerResult {
 
   RandomizerResult(
       {required this.factions, required this.status, this.errorMessage});
+
+  int get totalReach {
+    return factions.fold(
+        0, (previousValue, element) => previousValue + element.reach);
+  }
 }
 
 class RandomizerResultNotifier extends Notifier<RandomizerResult> {
@@ -24,7 +29,7 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
     // 1. Too many mandatory factions
     if (neededMoreFactions < 0) {
       return RandomizerResult(
-        factions: [],
+        factions: filter.mandatoryFactions.toList(),
         status: ResultStatus.error,
         errorMessage: 'Too many mandatory factions',
       );
@@ -32,8 +37,11 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
 
     // 2. Not enough available factions
     if (filter.getAvailableFactions().length < neededMoreFactions) {
+      List<Factions> possibleFactions = [];
+      possibleFactions.addAll(filter.mandatoryFactions);
+      possibleFactions.addAll(filter.getAvailableFactions());
       return RandomizerResult(
-        factions: [],
+        factions: possibleFactions,
         status: ResultStatus.error,
         errorMessage: 'Not enough available factions',
       );

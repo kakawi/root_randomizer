@@ -69,7 +69,6 @@ class RandomizerResultWidget extends ConsumerWidget {
   }
 
   Row generateRow({required List<Factions> factions, int prefix = 0}) {
-    final isSecondRow = prefix > 0;
     int spacers = 4 - factions.length;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
