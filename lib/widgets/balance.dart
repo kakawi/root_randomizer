@@ -8,16 +8,17 @@ class BalanceWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final balance = ref.watch(balanceProvider);
+    final currentBalance = ref.watch(balanceProvider);
     final totalReach = ref.watch(randomizerResultProvider).totalReach;
-    final isSatisfiedBalance = this.isSatisfiedBalance(balance, totalReach);
+    final isSatisfiedBalance =
+        this.isSatisfiedBalance(currentBalance, totalReach);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Row(
         children: [
-          BalanceButton(targetBalance: Balance.balanced),
-          BalanceButton(targetBalance: Balance.chaotic),
-          BalanceButton(targetBalance: Balance.anarchic),
+          BalanceButton(targetBalance: BalanceMode.balanced),
+          BalanceButton(targetBalance: BalanceMode.chaotic),
+          BalanceButton(targetBalance: BalanceMode.anarchic),
         ],
       ),
       Row(
@@ -32,7 +33,7 @@ class BalanceWidget extends ConsumerWidget {
             ),
           ),
           Text(
-            generateBalanceRuleText(balance),
+            generateBalanceRuleText(currentBalance),
             style: const TextStyle(
               fontSize: 10,
               fontStyle: FontStyle.italic,
@@ -43,38 +44,29 @@ class BalanceWidget extends ConsumerWidget {
     ]);
   }
 
-  String generateBalanceRuleText(Balance balance) {
-    switch (balance) {
-      case Balance.balanced:
-        return 'Goal Reach: ≥';
-      case Balance.chaotic:
-        return 'Goal Reach: ≥17';
-      case Balance.anarchic:
+  String generateBalanceRuleText(CurrentBalance currentBalance) {
+    switch (currentBalance.balanceMode) {
+      case BalanceMode.anarchic:
         return 'No limits';
+      default:
+        return 'Goal Reach: ≥${currentBalance.goalReach}';
     }
   }
 
-  bool isSatisfiedBalance(Balance balance, int totalReach) {
-    switch (balance) {
-      case Balance.balanced:
-        return totalReach >= 12;
-      case Balance.chaotic:
-        return totalReach >= 17;
-      case Balance.anarchic:
-        return true;
-    }
+  bool isSatisfiedBalance(CurrentBalance balance, int totalReach) {
+    return totalReach >= balance.goalReach;
   }
 }
 
 class BalanceButton extends ConsumerWidget {
   const BalanceButton({super.key, required this.targetBalance});
 
-  final Balance targetBalance;
+  final BalanceMode targetBalance;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentBalance = ref.watch(balanceProvider);
-    final isSelected = currentBalance == targetBalance;
+    final isSelected = currentBalance.balanceMode == targetBalance;
 
     return Expanded(
       child: TextButton(
