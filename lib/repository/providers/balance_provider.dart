@@ -22,7 +22,7 @@ class BalanceNotifier extends Notifier<CurrentBalance> {
     final numberOfPlayers = ref.watch(numberOfPlayersProvider);
     return CurrentBalance(
       balanceMode: balanceMode,
-      goalReach: calculateGoalReach(BalanceMode.balanced, numberOfPlayers),
+      goalReach: calculateGoalReach(balanceMode, numberOfPlayers),
     );
   }
 
