@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:root_randomizer/repository/providers/balance_provider.dart';
 import 'package:root_randomizer/repository/providers/factions_filter_provider.dart';
 import 'package:root_randomizer/repository/providers/number_of_players_provider.dart';
 
@@ -23,6 +24,7 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
   RandomizerResult build() {
     final numberOfPlayers = ref.watch(numberOfPlayersProvider);
     final filter = ref.watch(factionsFilterProvider);
+    final currentBalance = ref.watch(balanceProvider);
 
     final mandatoryFactionsNumber = filter.mandatoryFactions.length;
     final neededMoreFactions = numberOfPlayers - mandatoryFactionsNumber;
@@ -35,11 +37,11 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
       );
     }
 
+    List<Factions> possibleFactions = [];
+    possibleFactions.addAll(filter.mandatoryFactions);
+    possibleFactions.addAll(filter.getAvailableFactions());
     // 2. Not enough available factions
     if (filter.getAvailableFactions().length < neededMoreFactions) {
-      List<Factions> possibleFactions = [];
-      possibleFactions.addAll(filter.mandatoryFactions);
-      possibleFactions.addAll(filter.getAvailableFactions());
       return RandomizerResult(
         factions: possibleFactions,
         status: ResultStatus.error,
@@ -47,7 +49,19 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
       );
     }
 
-    // 3. Success
+    // 3. Not enough reach
+    final possibleReach =
+        possibleFactions.fold(0, (acc, faction) => acc + faction.reach);
+    if (possibleReach < currentBalance.goalReach) {
+      return RandomizerResult(
+        factions: possibleFactions,
+        status: ResultStatus.error,
+        errorMessage:
+            'The possible Reach is too low ($possibleReach/${currentBalance.goalReach})',
+      );
+    }
+
+    // 4. Success
     final mandatoryFactions = filter.mandatoryFactions;
     final randomAvailableFactions =
         filter.getAvailableFactions(limit: neededMoreFactions);
