@@ -104,7 +104,7 @@ class FactionsFilter {
         mandatoryFactions: mandatoryFactions);
   }
 
-  List<Factions> findFactions({required int limit, required int targetReach}) {
+  List<List<Factions>> findPossibleCombinations({required int limit, required int targetReach}) {
     final availableFactions = getAvailableFactions();
     List<List<Factions>> possibleCombinations = [];
 
@@ -127,7 +127,7 @@ class FactionsFilter {
 
     findPath(availableFactions, limit, targetReach, [], possibleCombinations);
     possibleCombinations.shuffle();
-    return possibleCombinations.first;
+    return possibleCombinations;
   }
 }
 

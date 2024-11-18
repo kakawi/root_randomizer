@@ -61,13 +61,23 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
       );
     }
 
-    // 4. Success
+    // 4. No possible combinations
     final mandatoryFactions = filter.mandatoryFactions;
     final mandatoryFactionsReach =
         filter.mandatoryFactions.fold(0, (acc, faction) => acc + faction.reach);
     final neededMoreReach = currentBalance.goalReach - mandatoryFactionsReach;
-    List<Factions> randomAvailableFactions = filter.findFactions(
+    List<List<Factions>> possibleCombinations = filter.findPossibleCombinations(
         limit: neededMoreFactions, targetReach: neededMoreReach);
+    if (possibleCombinations.isEmpty) {
+      return RandomizerResult(
+        factions: [],
+        status: ResultStatus.error,
+        errorMessage: 'No possible combinations',
+      );
+    }
+
+    // 5. Success
+    final randomAvailableFactions = possibleCombinations.first;
     final resultFactions = [...mandatoryFactions, ...randomAvailableFactions];
     resultFactions.shuffle();
 
