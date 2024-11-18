@@ -14,25 +14,28 @@ class CurrentBalance {
   final int goalReach;
 }
 
-class BalanceNotifier extends StateNotifier<CurrentBalance> {
-  BalanceNotifier(this.numberOfPlayers)
-      : super(CurrentBalance(
-            balanceMode: BalanceMode.balanced,
-            goalReach:
-                calculateGoalReach(BalanceMode.balanced, numberOfPlayers)));
+class BalanceNotifier extends Notifier<CurrentBalance> {
+  var balanceMode = BalanceMode.balanced;
 
-  final int numberOfPlayers;
+  @override
+  CurrentBalance build() {
+    final numberOfPlayers = ref.watch(numberOfPlayersProvider);
+    return CurrentBalance(
+      balanceMode: balanceMode,
+      goalReach: calculateGoalReach(BalanceMode.balanced, numberOfPlayers),
+    );
+  }
 
   void changeBalance(BalanceMode newBalanceMode) {
-    if (state.balanceMode == newBalanceMode) return;
-    final newGoalReach = calculateGoalReach(newBalanceMode, numberOfPlayers);
-    state =
-        CurrentBalance(balanceMode: newBalanceMode, goalReach: newGoalReach);
+    if (balanceMode == newBalanceMode) return;
+    balanceMode = newBalanceMode;
+
+    state = build();
   }
 }
 
-final balanceProvider = StateNotifierProvider<BalanceNotifier, CurrentBalance>(
-  (ref) => BalanceNotifier(ref.watch(numberOfPlayersProvider)),
+final balanceProvider = NotifierProvider<BalanceNotifier, CurrentBalance>(
+  BalanceNotifier.new,
 );
 
 int calculateGoalReach(BalanceMode balanceMode, int numberOfPlayers) {
