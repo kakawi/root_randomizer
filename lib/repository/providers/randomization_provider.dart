@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:root_randomizer/repository/providers/balance_provider.dart';
 import 'package:root_randomizer/repository/providers/factions_filter_provider.dart';
@@ -63,8 +64,11 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
 
     // 4. Success
     final mandatoryFactions = filter.mandatoryFactions;
-    final randomAvailableFactions =
-        filter.getAvailableFactions(limit: neededMoreFactions);
+    final mandatoryFactionsReach =
+        filter.mandatoryFactions.fold(0, (acc, faction) => acc + faction.reach);
+    final neededMoreReach = currentBalance.goalReach - mandatoryFactionsReach;
+    List<Factions> randomAvailableFactions = filter.findFactions(
+        limit: neededMoreFactions, targetReach: neededMoreReach);
     final resultFactions = [...mandatoryFactions, ...randomAvailableFactions];
     resultFactions.shuffle();
 

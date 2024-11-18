@@ -79,16 +79,11 @@ class FactionsFilter {
         mandatoryFactions: newMandatoryFactions);
   }
 
-  List<Factions> getAvailableFactions({int? limit}) {
+  List<Factions> getAvailableFactions() {
     final result = Factions.values.toSet();
     result.removeAll(forbiddenFactions);
     result.removeAll(mandatoryFactions);
-    if (limit == null) {
-      return result.toList();
-    }
-    final shuffledResult = result.toList();
-    shuffledResult.shuffle();
-    return shuffledResult.take(limit).toList();
+    return result.toList();
   }
 
   FactionsFilter addForbiddenFactions(Iterable<Factions> factions) {
@@ -107,6 +102,32 @@ class FactionsFilter {
     return FactionsFilter(
         forbiddenFactions: newForbiddenFactions,
         mandatoryFactions: mandatoryFactions);
+  }
+
+  List<Factions> findFactions({required int limit, required int targetReach}) {
+    final availableFactions = getAvailableFactions();
+    List<List<Factions>> possibleCombinations = [];
+
+    void findPath(List<Factions> restFactions, int restLimit, int restReach,
+        List<Factions> currentPath, List<List<Factions>> result) {
+      if (restLimit == 0) {
+        if (restReach <= 0) {
+          result.add(currentPath);
+        }
+        return;
+      }
+      for (Factions faction in restFactions) {
+        List<Factions> newRestFactions = List.from(restFactions)
+          ..remove(faction);
+        List<Factions> newCurrentPath = List.from(currentPath)..add(faction);
+        findPath(newRestFactions, restLimit - 1, restReach - faction.reach,
+            newCurrentPath, result);
+      }
+    }
+
+    findPath(availableFactions, limit, targetReach, [], possibleCombinations);
+    possibleCombinations.shuffle();
+    return possibleCombinations.first;
   }
 }
 
