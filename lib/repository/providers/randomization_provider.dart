@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:root_randomizer/repository/providers/balance_provider.dart';
 import 'package:root_randomizer/repository/providers/factions_filter_provider.dart';
