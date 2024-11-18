@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:root_randomizer/repository/providers/balance_provider.dart';
 import 'package:root_randomizer/repository/providers/randomization_provider.dart';
 
+const verticalDivider =
+    VerticalDivider(color: Colors.black, thickness: 1, width: 1);
+
 class BalanceWidget extends ConsumerWidget {
   const BalanceWidget({super.key});
 
@@ -14,12 +17,17 @@ class BalanceWidget extends ConsumerWidget {
         this.isSatisfiedBalance(currentBalance, totalReach);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Row(
-        children: [
-          BalanceButton(targetBalance: BalanceMode.balanced),
-          BalanceButton(targetBalance: BalanceMode.chaotic),
-          BalanceButton(targetBalance: BalanceMode.anarchic),
-        ],
+      const IntrinsicHeight(
+        // So VerticalDivider has height to be shown
+        child: Row(
+          children: [
+            BalanceButton(targetBalance: BalanceMode.balanced),
+            verticalDivider,
+            BalanceButton(targetBalance: BalanceMode.chaotic),
+            verticalDivider,
+            BalanceButton(targetBalance: BalanceMode.anarchic),
+          ],
+        ),
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,11 +77,19 @@ class BalanceButton extends ConsumerWidget {
     final isSelected = currentBalance.balanceMode == targetBalance;
 
     return Expanded(
-      child: TextButton(
+      child: ElevatedButton(
         style: ButtonStyle(
+          padding: WidgetStateProperty.all(const EdgeInsets.all(0)),
+          minimumSize: WidgetStateProperty.all(const Size(0, 48)),
+          foregroundColor: WidgetStateProperty.all(isSelected
+              ? const Color.fromARGB(255, 235, 229, 229)
+              : Colors.black),
           backgroundColor: isSelected
-              ? MaterialStateProperty.all(Colors.green)
-              : MaterialStateProperty.all(Colors.blue),
+              ? WidgetStateProperty.all(const Color.fromARGB(255, 76, 66, 22))
+              : WidgetStateProperty.all(const Color.fromARGB(48, 241, 194, 7)),
+          shape: WidgetStateProperty.all(const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          )),
         ),
         onPressed: () {
           ref.read(balanceProvider.notifier).changeBalance(targetBalance);
