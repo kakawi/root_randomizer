@@ -66,7 +66,7 @@ class MainScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   BalanceWidget(),
-                  SizedBox(height: 80, child: RandomizerResult()),
+                  RandomizerResultWidget(),
                   FactionsFilter(),
                   PlayersWidget()
                 ]),

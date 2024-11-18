@@ -2,25 +2,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:root_randomizer/repository/providers/faction_icon_status.dart';
 
 enum Factions {
-  marquiseDeCat,
-  eyrieDynasty,
-  woodlandAlliance,
-  vagabond,
+  marquiseDeCat(reach: 10),
+  eyrieDynasty(reach: 7),
+  woodlandAlliance(reach: 3),
+  vagabond(reach: 5),
 
   // The Riverfolk Expansion
-  lizardCult,
-  riverfolkCompany,
-  secondVagabond,
+  lizardCult(reach: 2),
+  riverfolkCompany(reach: 5),
+  secondVagabond(reach: 2),
 
   // The Underworld Expansion
-  corvidConspiracy,
-  undergroundDuchy,
+  corvidConspiracy(reach: 3),
+  undergroundDuchy(reach: 8),
 
   // The Marauder Expansion
-  lordOfTheHundreds,
-  keepersInIron,
+  lordOfTheHundreds(reach: 9),
+  keepersInIron(reach: 8);
 
   // Homeland Expansion
+
+  const Factions({required this.reach});
+
+  final int reach;
 }
 
 class FactionsFilter {

@@ -16,7 +16,7 @@ class FactionIcon extends StatelessWidget {
         return 'assets/images/woodland_alliance.png';
       case Factions.vagabond:
         return 'assets/images/vagabond.png';
-      
+
       case Factions.lizardCult:
         return 'assets/images/lizard_cult.png';
       case Factions.riverfolkCompany:
@@ -38,6 +38,11 @@ class FactionIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(getFactionAssetImage(faction));
+    return Column(children: [
+      Image.asset(getFactionAssetImage(faction)),
+      Text('Reach: ${faction.reach.toString()}', style: const TextStyle(
+        fontSize: 10,
+      ),)
+    ]);
   }
 }
