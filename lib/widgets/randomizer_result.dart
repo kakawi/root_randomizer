@@ -34,7 +34,11 @@ class RandomizerResultWidget extends ConsumerWidget {
   getShowWidget(WidgetRef ref) {
     final randomizerResult = ref.watch(randomizerResultProvider);
     if (randomizerResult.status == ResultStatus.error) {
-      return Center(child: Text(randomizerResult.errorMessage!, textAlign: TextAlign.center,));
+      return Center(
+          child: Text(
+        randomizerResult.errorMessage!,
+        textAlign: TextAlign.center,
+      ));
     }
 
     var grid = generateGrid(randomizerResult);
@@ -42,9 +46,6 @@ class RandomizerResultWidget extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
-          "Setup: ",
-        ),
         Expanded(
             child: Column(
           children: grid,
@@ -85,8 +86,7 @@ class RandomizerResultWidget extends ConsumerWidget {
               ],
             ),
           ),
-          for (int i = 0; i < spacers; i++)
-            const Spacer(),
+        for (int i = 0; i < spacers; i++) const Spacer(),
       ],
     );
   }
