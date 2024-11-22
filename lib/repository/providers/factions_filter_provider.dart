@@ -48,9 +48,14 @@ class FactionsFilter {
     final newForbiddenFactions = {...forbiddenFactions};
     final newMandatoryFactions = {...mandatoryFactions};
     newMandatoryFactions.add(faction);
-    if (forbiddenFactions.contains(faction)) {
-      newForbiddenFactions.remove(faction);
+    newForbiddenFactions.remove(faction);
+
+    // if secondVagabond mandatory, then first one too
+    if (faction == Factions.secondVagabond) {
+      newMandatoryFactions.add(Factions.vagabond);
+      newForbiddenFactions.remove(Factions.vagabond);
     }
+
     return FactionsFilter(
         forbiddenFactions: newForbiddenFactions,
         mandatoryFactions: newMandatoryFactions);
@@ -59,21 +64,37 @@ class FactionsFilter {
   FactionsFilter toggleFaction(Factions faction) {
     final newForbiddenFactions = {...forbiddenFactions};
     final newMandatoryFactions = {...mandatoryFactions};
+    // forbidden -> available
     if (forbiddenFactions.contains(faction)) {
       newForbiddenFactions.remove(faction);
+      // If Second Vagabond is available, then Vagabond is also available
+      if (isSecondVagabond(faction)) {
+        newForbiddenFactions.remove(Factions.vagabond);
+      }
       return FactionsFilter(
           forbiddenFactions: newForbiddenFactions,
           mandatoryFactions: newMandatoryFactions);
     }
 
+    // mandatory -> available
     if (mandatoryFactions.contains(faction)) {
       newMandatoryFactions.remove(faction);
+      // If Vagabond is available, then Second Vagabond is not mandatory
+      if (isFirstVagabond(faction)) {
+        newMandatoryFactions.remove(Factions.secondVagabond);
+      }
       return FactionsFilter(
           forbiddenFactions: newForbiddenFactions,
           mandatoryFactions: newMandatoryFactions);
     }
 
+    // available -> forbidden
     newForbiddenFactions.add(faction);
+    // If Vagabond is forbidden, then Second Vagabond is also forbidden
+    if (isFirstVagabond(faction)) {
+      newMandatoryFactions.remove(Factions.secondVagabond);
+      newForbiddenFactions.add(Factions.secondVagabond);
+    }
     return FactionsFilter(
         forbiddenFactions: newForbiddenFactions,
         mandatoryFactions: newMandatoryFactions);
@@ -104,7 +125,8 @@ class FactionsFilter {
         mandatoryFactions: mandatoryFactions);
   }
 
-  List<List<Factions>> findPossibleCombinations({required int limit, required int targetReach}) {
+  List<List<Factions>> findPossibleCombinations(
+      {required int limit, required int targetReach}) {
     final availableFactions = getAvailableFactions();
     List<List<Factions>> possibleCombinations = [];
 
@@ -128,6 +150,14 @@ class FactionsFilter {
     findPath(availableFactions, limit, targetReach, [], possibleCombinations);
     possibleCombinations.shuffle();
     return possibleCombinations;
+  }
+
+  bool isFirstVagabond(Factions faction) {
+    return faction == Factions.vagabond;
+  }
+
+  bool isSecondVagabond(Factions faction) {
+    return faction == Factions.secondVagabond;
   }
 }
 

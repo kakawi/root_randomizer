@@ -49,7 +49,7 @@ class RandomizerResultNotifier extends Notifier<RandomizerResult> {
       );
     }
 
-    // 3. Not enough reach
+    // 3. Not enough reach TODO: this condition never happens
     final possibleReach =
         possibleFactions.fold(0, (acc, faction) => acc + faction.reach);
     if (possibleReach < currentBalance.goalReach) {
