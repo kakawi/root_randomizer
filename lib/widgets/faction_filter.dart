@@ -76,7 +76,7 @@ class FactionFilter extends ConsumerWidget {
           ),
           Positioned(
             top: 4,
-            left: 12,
+            left: 8,
             child: svgIcon,
           ),
         ],
