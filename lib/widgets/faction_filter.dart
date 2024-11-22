@@ -63,10 +63,9 @@ class FactionFilter extends ConsumerWidget {
       child: Stack(
         children: [
           Container(
-            width: 70,
+            width: 75,
             height: 70,
-            padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.symmetric(horizontal: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
               border: Border.all(color: borderColor, width: 2),
               shape: BoxShape.rectangle,
