@@ -22,6 +22,15 @@ class FactionFilter extends ConsumerWidget {
     }
   }
 
+  double getLeftPosition(FactionIconStatus status) {
+    switch (status) {
+      case FactionIconStatus.forbidden:
+        return 8;
+      default:
+        return 10;
+    }
+  }
+
   SvgPicture getSvgIcon(FactionIconStatus status) {
     final iconPath = getSvgIconPath(status);
     final color = getBorderColor(status);
@@ -76,7 +85,7 @@ class FactionFilter extends ConsumerWidget {
           ),
           Positioned(
             top: 4,
-            left: 8,
+            left: getLeftPosition(status),
             child: svgIcon,
           ),
         ],
