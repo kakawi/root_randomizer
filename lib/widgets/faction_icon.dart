@@ -38,11 +38,16 @@ class FactionIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Image.asset(getFactionAssetImage(faction)),
-      Text('Reach: ${faction.reach.toString()}', style: const TextStyle(
-        fontSize: 10,
-      ),)
-    ]);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(getFactionAssetImage(faction)),
+          Text(
+            'Reach: ${faction.reach.toString()}',
+            style: const TextStyle(
+              fontSize: 10,
+            ),
+          )
+        ]);
   }
 }

@@ -1,7 +1,7 @@
 name: root_randomizer
 description: "Root Randomizer"
 publish_to: 'none'
-version: 0.9.0+9
+version: 0.10.0+10
 
 environment:
   sdk: ^3.5.4
@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.6.1
+  flutter_svg: ^2.0.15
   google_fonts: ^6.2.1
 
 dev_dependencies:
@@ -23,3 +24,4 @@ flutter:
   assets:
     - assets/images/
     - assets/google_fonts/
+    - assets/icons/
