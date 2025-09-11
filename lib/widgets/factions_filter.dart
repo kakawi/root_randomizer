@@ -9,6 +9,7 @@ class FactionsFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
       children: const [
         ExpansionFilter(
           expansionName: "Base game",

@@ -16,42 +16,71 @@ class PlayersWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final numberOfPlayers = ref.watch(numberOfPlayersProvider);
     final notifier = ref.read(numberOfPlayersProvider.notifier);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text("Number of players: "),
-        Row(
-          children: [
-            ElevatedButton(
-                onPressed: notifier.decrement,
-                style: playersButtonStyle,
-                child: const Text(
-                  "-",
-                  style: TextStyle(
-                    fontSize: 26,
-                    color: Colors.black,
-                  ),
-                )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Text(
-                numberOfPlayers.toString(),
-                style: const TextStyle(fontSize: 38),
+    return Container(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).padding.bottom > 0 
+            ? MediaQuery.of(context).padding.bottom + 8 
+            : 8,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Text(
+              "Number of players: ",
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width < 400 ? 14 : 16,
               ),
             ),
-            ElevatedButton(
-                onPressed: notifier.increment,
-                style: playersButtonStyle,
-                child: const Text(
-                  "+",
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: notifier.decrement,
+                style: playersButtonStyle.copyWith(
+                  minimumSize: WidgetStateProperty.all(Size(
+                    MediaQuery.of(context).size.width < 400 ? 35 : 40,
+                    MediaQuery.of(context).size.width < 400 ? 35 : 40,
+                  )),
+                ),
+                child: Text(
+                  "-",
                   style: TextStyle(
-                    fontSize: 26,
+                    fontSize: MediaQuery.of(context).size.width < 400 ? 20 : 26,
                     color: Colors.black,
                   ),
                 )),
-          ],
-        )
-      ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width < 400 ? 3 : 5,
+                ),
+                child: Text(
+                  numberOfPlayers.toString(),
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width < 400 ? 28 : 38,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: notifier.increment,
+                style: playersButtonStyle.copyWith(
+                  minimumSize: WidgetStateProperty.all(Size(
+                    MediaQuery.of(context).size.width < 400 ? 35 : 40,
+                    MediaQuery.of(context).size.width < 400 ? 35 : 40,
+                  )),
+                ),
+                child: Text(
+                  "+",
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width < 400 ? 20 : 26,
+                    color: Colors.black,
+                  ),
+                )),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

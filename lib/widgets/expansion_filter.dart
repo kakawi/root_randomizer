@@ -58,6 +58,7 @@ class ExpansionFilter extends ConsumerWidget {
     final expansionStatus = getExpansionStatus(factionsFilter);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextButton(
             onPressed: () {
@@ -67,16 +68,37 @@ class ExpansionFilter extends ConsumerWidget {
             child: Row(
               children: [
                 expansionStatus.widget,
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text(expansionName,
-                  style: const TextStyle(color: Colors.black)),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      expansionName,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: MediaQuery.of(context).size.width < 400 ? 14 : 16,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ],
             )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: factionFilterWidgets,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (int i = 0; i < factionFilterWidgets.length; i++) ...[
+                  factionFilterWidgets[i],
+                  if (i < factionFilterWidgets.length - 1)
+                    SizedBox(width: MediaQuery.of(context).size.width < 400 ? 2.0 : 4.0),
+                ],
+              ],
+            ),
+          ),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:root_randomizer/widgets/balance.dart';
@@ -60,23 +61,25 @@ class MainScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: const Text(appTitle),
+            title: Text(kDebugMode ? '$appTitle (DEBUG)' : appTitle),
             backgroundColor: Colors.transparent,
             // backgroundColor: const Color.fromARGB(150, 171, 186, 124),
           ),
-          body: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: const Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  BalanceWidget(),
-                  divider,
-                  RandomizerResultWidget(),
-                  divider,
-                  FactionsFilter(),
-                  PlayersWidget()
-                ]),
+          body: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const BalanceWidget(),
+                    divider,
+                    const RandomizerResultWidget(),
+                    divider,
+                    const FactionsFilter(),
+                    const PlayersWidget()
+                  ]),
+            ),
           ),
         ),
       ),

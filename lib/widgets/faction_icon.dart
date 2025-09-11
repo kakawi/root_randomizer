@@ -44,8 +44,8 @@ class FactionIcon extends StatelessWidget {
           Image.asset(getFactionAssetImage(faction)),
           Text(
             'Reach: ${faction.reach.toString()}',
-            style: const TextStyle(
-              fontSize: 10,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width < 400 ? 8 : 10,
             ),
           )
         ]);
