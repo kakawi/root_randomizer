@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NumberOfPlayersNotifier extends StateNotifier<int> {
-  NumberOfPlayersNotifier() : super(4);
+class NumberOfPlayersNotifier extends Notifier<int> {
+  @override
+  int build() => 4;
 
   void increment() {
     if (state == 6) {
@@ -19,6 +20,6 @@ class NumberOfPlayersNotifier extends StateNotifier<int> {
 }
 
 final numberOfPlayersProvider =
-    StateNotifierProvider<NumberOfPlayersNotifier, int>(
-  (ref) => NumberOfPlayersNotifier(),
+    NotifierProvider<NumberOfPlayersNotifier, int>(
+  NumberOfPlayersNotifier.new,
 );

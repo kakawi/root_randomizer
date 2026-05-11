@@ -161,12 +161,12 @@ class FactionsFilter {
   }
 }
 
-class FactionsFilterNotifier extends StateNotifier<FactionsFilter> {
-  FactionsFilterNotifier()
-      : super(const FactionsFilter(
-          forbiddenFactions: {},
-          mandatoryFactions: {},
-        ));
+class FactionsFilterNotifier extends Notifier<FactionsFilter> {
+  @override
+  FactionsFilter build() => const FactionsFilter(
+        forbiddenFactions: {},
+        mandatoryFactions: {},
+      );
 
   void toggleFaction(Factions faction) {
     state = state.toggleFaction(faction);
@@ -188,6 +188,6 @@ class FactionsFilterNotifier extends StateNotifier<FactionsFilter> {
 }
 
 final factionsFilterProvider =
-    StateNotifierProvider<FactionsFilterNotifier, FactionsFilter>(
-  (ref) => FactionsFilterNotifier(),
+    NotifierProvider<FactionsFilterNotifier, FactionsFilter>(
+  FactionsFilterNotifier.new,
 );

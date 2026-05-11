@@ -11,7 +11,7 @@ class FactionFilter extends ConsumerWidget {
 
   final Factions faction;
 
-  getBorderColor(FactionIconStatus status) {
+  Color getBorderColor(FactionIconStatus status) {
     switch (status) {
       case FactionIconStatus.mandatory:
         return Colors.green;

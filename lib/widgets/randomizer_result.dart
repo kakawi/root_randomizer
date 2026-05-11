@@ -31,7 +31,7 @@ class RandomizerResultWidget extends ConsumerWidget {
     );
   }
 
-  getShowWidget(WidgetRef ref) {
+  Widget getShowWidget(WidgetRef ref) {
     final randomizerResult = ref.watch(randomizerResultProvider);
     if (randomizerResult.status == ResultStatus.error) {
       return Center(
