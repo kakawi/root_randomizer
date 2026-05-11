@@ -18,9 +18,12 @@ enum Factions {
 
   // The Marauder Expansion
   lordOfTheHundreds(reach: 9),
-  keepersInIron(reach: 8);
+  keepersInIron(reach: 8),
 
   // Homeland Expansion
+  knavesOfTheDeepwood(reach: 4), // skunks
+  lilypadDiaspora(reach: 7), // frogs
+  twilightCouncil(reach: 4); // bats
 
   const Factions({required this.reach});
 

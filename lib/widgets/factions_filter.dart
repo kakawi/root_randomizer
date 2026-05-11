@@ -36,6 +36,11 @@ class FactionsFilter extends StatelessWidget {
           Factions.lordOfTheHundreds,
           Factions.keepersInIron,
         ]),
+        ExpansionFilter(expansionName: "The Homeland Expansion", factions: [
+          Factions.knavesOfTheDeepwood,
+          Factions.lilypadDiaspora,
+          Factions.twilightCouncil,
+        ]),
       ],
     ));
   }

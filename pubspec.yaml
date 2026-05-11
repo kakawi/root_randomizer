@@ -1,7 +1,7 @@
 name: root_randomizer
 description: "Root Randomizer"
 publish_to: 'none'
-version: 0.16.0+16
+version: 1.0.0+17
 
 environment:
   sdk: ^3.5.4
